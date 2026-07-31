@@ -1,11 +1,14 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
+import { loginUser } from './features/user/userSlice'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const dispatch = useDispatch()
 
   return (
     <>
@@ -27,6 +30,12 @@ function App() {
           onClick={() => setCount((count) => count + 1)}
         >
           Count is {count}
+        </button>
+        <button
+          type="button"
+          onClick={() => dispatch(loginUser({ email: 'tony@stark.com', password: 'password123' }))}
+        >
+          Tester le login Redux
         </button>
       </section>
 
