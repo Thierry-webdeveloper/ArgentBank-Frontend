@@ -40,7 +40,6 @@ function App() {
           Tester le login Redux
         </button>
 
-        
         {/* Ajout d'un bouton de test de la fonction logout */}
         <button
           type="button"

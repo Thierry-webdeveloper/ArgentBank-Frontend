@@ -6,7 +6,7 @@ export const loginUser = createAsyncThunk("user/login", async (credentials) => {
     "http://localhost:3001/api/v1/user/login",
     credentials,
   );
-  console.log("Réponse API reçue :", response.data);
+  // console.log("Réponse API reçue :", response.data);
   return response.data.body;
 });
 
@@ -23,7 +23,7 @@ const userSlice = createSlice({
       state.token = null;
       state.status = "idle";
       state.error = null;
-      console.log("logout");
+      // console.log("logout");
     },
   },
 
