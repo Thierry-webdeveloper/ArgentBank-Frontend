@@ -12,18 +12,27 @@ export const loginUser = createAsyncThunk("user/login", async (credentials) => {
 
 const userSlice = createSlice({
   name: "user",
-  initialState: {},
+  initialState: {
+    token: null,
+    status: "idle",
+    error: null,
+  },
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(loginUser.pending, () => {
-        console.log("Statut : pending");
+      .addCase(loginUser.pending, (state) => {
+        state.status = "loading";
+        // console.log("Statut : pending");
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        console.log("Statut : fulfilled", action.payload);
+        state.status = "succeeded";
+        state.token = action.payload.token;
+        // console.log("Statut : fulfilled", action.payload);
       })
       .addCase(loginUser.rejected, (state, action) => {
-        console.log("Statut : rejected", action.error);
+        state.status = "failed";
+        state.error = action.error.message;
+        // console.log("Statut : rejected", action.error);
       });
   },
 });
