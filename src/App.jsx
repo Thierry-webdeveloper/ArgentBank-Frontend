@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
-import { loginUser, logout, fetchProfile } from './features/user/userSlice'
+import { loginUser, logout, fetchProfile, updateUserName } from './features/user/userSlice'
 import './App.css'
 
 function App() {
@@ -46,6 +46,14 @@ function App() {
           onClick={() => dispatch(fetchProfile())}
         >
           Tester le fetchProfile Redux
+        </button>
+
+        {/* Ajout d'un bouton de test de la fonction updateUserName */}
+        <button
+          type="button"
+          onClick={() => dispatch(updateUserName('NouveauPseudo'))}
+        >
+          Tester updateUserName Redux
         </button>
 
         {/* Ajout d'un bouton de test de la fonction logout */}

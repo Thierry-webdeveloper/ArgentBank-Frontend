@@ -27,6 +27,24 @@ export const fetchProfile = createAsyncThunk(
   },
 );
 
+export const updateUserName = createAsyncThunk(
+  "user/updateUsername",
+  async (userName, { getState, rejectWithValue }) => {
+    try {
+      const token = getState().user.token;
+      const response = await axios.put(
+        "http://localhost:3001/api/v1/user/profile",
+        { userName },
+        { headers: { Authorization: `Bearer ${token}` } },
+      );
+      // console.log("Réponse API reçue :", response.data.body);
+      return response.data.body;
+    } catch (err) {
+      return rejectWithValue(err.response.data.message);
+    }
+  },
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState: {
@@ -61,6 +79,7 @@ const userSlice = createSlice({
         state.error = action.error.message;
         // console.log("Statut : rejected", action.error);
       })
+
       .addCase(fetchProfile.pending, (state) => {
         state.status = "loading";
         // console.log("Statut : pending");
@@ -71,6 +90,21 @@ const userSlice = createSlice({
         // console.log("Statut : fulfilled", action.payload);
       })
       .addCase(fetchProfile.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+        // console.log("Statut : rejected", action.payload);
+      })
+
+      .addCase(updateUserName.pending, (state) => {
+        state.status = "loading";
+        // console.log("Statut : pending");
+      })
+      .addCase(updateUserName.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.profile = action.payload;
+        // console.log("Statut : fulfilled", action.payload);
+      })
+      .addCase(updateUserName.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
         // console.log("Statut : rejected", action.payload);
