@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
-import { loginUser } from './features/user/userSlice'
+import { loginUser, logout  } from './features/user/userSlice'
 import './App.css'
 
 function App() {
@@ -31,12 +31,24 @@ function App() {
         >
           Count is {count}
         </button>
+
+        {/* Ajout d'un bouton de test de la fonction login */}
         <button
           type="button"
           onClick={() => dispatch(loginUser({ email: 'tony@stark.com', password: 'password123' }))}
         >
           Tester le login Redux
         </button>
+
+        
+        {/* Ajout d'un bouton de test de la fonction logout */}
+        <button
+          type="button"
+          onClick={() => dispatch(logout())}
+        >
+          Tester le logout Redux
+        </button>
+
       </section>
 
       <div className="ticks"></div>

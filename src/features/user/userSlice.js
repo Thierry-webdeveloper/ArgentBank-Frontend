@@ -17,7 +17,16 @@ const userSlice = createSlice({
     status: "idle",
     error: null,
   },
-  reducers: {},
+
+  reducers: {
+    logout: (state) => {
+      state.token = null;
+      state.status = "idle";
+      state.error = null;
+      console.log("logout");
+    },
+  },
+
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state) => {
@@ -37,4 +46,5 @@ const userSlice = createSlice({
   },
 });
 
+export const { logout } = userSlice.actions;
 export default userSlice.reducer;
