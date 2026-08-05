@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { loginUser, logout, fetchProfile, updateUserName } from '../features/user/userSlice'
 import Navbar from '../components/Navbar.jsx'
+import Footer from '../components/Footer.jsx'
 import '../styles/main.css'
 
 function Home() {
@@ -62,9 +63,7 @@ function Home() {
         </button>
       </main>
 
-      <footer className="footer">
-        <p className="footer-text">Copyright 2020 Argent Bank</p>
-      </footer>
+      <Footer />
     </>
   )
 }
