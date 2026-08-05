@@ -1,156 +1,84 @@
-import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import reactLogo from '../assets/react.svg'
-import viteLogo from '../assets/vite.svg'
-import heroImg from '../assets/hero.png'
+import { Link } from 'react-router-dom'
 import { loginUser, logout, fetchProfile, updateUserName } from '../features/user/userSlice'
-import '../App.css'
+import '../styles/main.css'
 
 function Home() {
-  const [count, setCount] = useState(0)
   const dispatch = useDispatch()
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
+      <nav className="main-nav">
+        <Link className="main-nav-logo" to="/">
+          <img
+            className="main-nav-logo-image"
+            src="/img/argentBankLogo.png"
+            alt="Argent Bank Logo"
+          />
+          <h1 className="sr-only">Argent Bank</h1>
+        </Link>
         <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
+          <Link className="main-nav-item" to="/sign-in">
+            <i className="fa fa-user-circle"></i> Sign In
+           </Link>
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
+      </nav>
 
-        {/* Ajout d'un bouton de test de la fonction login */}
-        <button
-          type="button"
-          onClick={() => dispatch(loginUser({ email: 'tony@stark.com', password: 'password123' }))}
-        >
+      <main>
+        <div className="hero">
+          <section className="hero-content">
+            <h2 className="sr-only">Promoted Content</h2>
+            <p className="subtitle">No fees.</p>
+            <p className="subtitle">No minimum deposit.</p>
+            <p className="subtitle">High interest rates.</p>
+            <p className="text">Open a savings account with Argent Bank today!</p>
+          </section>
+        </div>
+        <section className="features">
+          <h2 className="sr-only">Features</h2>
+          <div className="feature-item">
+            <img src="/img/icon-chat.png" alt="Chat Icon" className="feature-icon" />
+            <h3 className="feature-item-title">You are our #1 priority</h3>
+            <p>
+              Need to talk to a representative? You can get in touch through our
+              24/7 chat or through a phone call in less than 5 minutes.
+            </p>
+          </div>
+          <div className="feature-item">
+            <img src="/img/icon-money.png" alt="Chat Icon" className="feature-icon" />
+            <h3 className="feature-item-title">More savings means higher rates</h3>
+            <p>
+              The more you save with us, the higher your interest rate will be!
+            </p>
+          </div>
+          <div className="feature-item">
+            <img src="/img/icon-security.png" alt="Chat Icon" className="feature-icon" />
+            <h3 className="feature-item-title">Security you can trust</h3>
+            <p>
+              We use top of the line encryption to make sure your data and money
+              is always safe.
+            </p>
+          </div>
+        </section>
+
+        {/* Boutons de test Redux, à retirer une fois les vraies pages connectées */}
+        <button type="button" onClick={() => dispatch(loginUser({ email: 'tony@stark.com', password: 'password123' }))}>
           Tester le login Redux
         </button>
-
-        {/* Ajout d'un bouton de test de la fonction fetchProfile */}
-        <button
-          type="button"
-          onClick={() => dispatch(fetchProfile())}
-        >
+        <button type="button" onClick={() => dispatch(fetchProfile())}>
           Tester le fetchProfile Redux
         </button>
-
-        {/* Ajout d'un bouton de test de la fonction updateUserName */}
-        <button
-          type="button"
-          onClick={() => dispatch(updateUserName('NouveauPseudo'))}
-        >
+        <button type="button" onClick={() => dispatch(updateUserName('Iron'))}>
           Tester updateUserName Redux
         </button>
-
-        {/* Ajout d'un bouton de test de la fonction logout */}
-        <button
-          type="button"
-          onClick={() => dispatch(logout())}
-        >
+        <button type="button" onClick={() => dispatch(logout())}>
           Tester le logout Redux
         </button>
+      </main>
 
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+      <footer className="footer">
+        <p className="footer-text">Copyright 2020 Argent Bank</p>
+      </footer>
     </>
   )
 }

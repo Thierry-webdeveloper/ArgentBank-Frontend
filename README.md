@@ -1,4 +1,4 @@
-<img src="public/argentBankLogo.png" width="300" alt="Argent Bank — Application bancaire">
+<img src="public/img/argentBankLogo.png" width="300" alt="Argent Bank — Application bancaire">
 
 Projet 10 de la formation **Intégrateur Web** (OpenClassrooms).
 
