@@ -1,8 +1,10 @@
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { logout } from '../features/user/userSlice'
 
 function Navbar() {
   const token = useSelector((state) => state.user.token)
+  const dispatch = useDispatch()
 
   return (
     <nav className="main-nav">
@@ -20,7 +22,7 @@ function Navbar() {
             <Link className="main-nav-item" to="/profile">
               <i className="fa fa-user-circle"></i> Tony
             </Link>
-            <Link className="main-nav-item" to="/">
+            <Link className="main-nav-item" to="/" onClick={() => dispatch(logout())}>
               <i className="fa fa-sign-out"></i> Sign Out
             </Link>
           </>
