@@ -3,7 +3,6 @@ import { loginUser, logout, fetchProfile, updateUserName } from '../features/use
 import Navbar from '../components/Navbar.jsx'
 import Footer from '../components/Footer.jsx'
 import FeatureItem from '../components/FeatureItem.jsx'
-import '../styles/main.css'
 
 function Home() {
   const dispatch = useDispatch()
