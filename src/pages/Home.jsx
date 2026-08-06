@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux'
 import { loginUser, logout, fetchProfile, updateUserName } from '../features/user/userSlice'
 import Navbar from '../components/Navbar.jsx'
 import Footer from '../components/Footer.jsx'
+import FeatureItem from '../components/FeatureItem.jsx'
 import '../styles/main.css'
 
 function Home() {
@@ -23,29 +24,21 @@ function Home() {
         </div>
         <section className="features">
           <h2 className="sr-only">Features</h2>
-          <div className="feature-item">
-            <img src="/img/icon-chat.png" alt="Chat Icon" className="feature-icon" />
-            <h3 className="feature-item-title">You are our #1 priority</h3>
-            <p>
-              Need to talk to a representative? You can get in touch through our
-              24/7 chat or through a phone call in less than 5 minutes.
-            </p>
-          </div>
-          <div className="feature-item">
-            <img src="/img/icon-money.png" alt="Chat Icon" className="feature-icon" />
-            <h3 className="feature-item-title">More savings means higher rates</h3>
-            <p>
-              The more you save with us, the higher your interest rate will be!
-            </p>
-          </div>
-          <div className="feature-item">
-            <img src="/img/icon-security.png" alt="Chat Icon" className="feature-icon" />
-            <h3 className="feature-item-title">Security you can trust</h3>
-            <p>
-              We use top of the line encryption to make sure your data and money
-              is always safe.
-            </p>
-          </div>
+          <FeatureItem
+            icon="/img/icon-chat.png"
+            title="You are our #1 priority"
+            text="Need to talk to a representative? You can get in touch through our 24/7 chat or through a phone call in less than 5 minutes."
+          />
+          <FeatureItem
+            icon="/img/icon-money.png"
+            title="More savings means higher rates"
+            text="The more you save with us, the higher your interest rate will be!"
+          />
+          <FeatureItem
+            icon="/img/icon-security.png"
+            title="Security you can trust"
+            text="We use top of the line encryption to make sure your data and money is always safe."
+          />
         </section>
 
         {/* Boutons de test Redux, à retirer une fois les vraies pages connectées */}
