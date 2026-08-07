@@ -173,6 +173,7 @@ body {
   border-color: #00bc77;
   background-color: #00bc77;
   color: #fff;
+  border: none;         /* Supprime la bordure par défaut du navigateur */
 }
 
 .sign-in-content {
