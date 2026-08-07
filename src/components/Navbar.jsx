@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { logout } from '../features/user/userSlice'
+import { ROUTES } from '../config/routes.js'
 
 function Navbar() {
   const token = useSelector((state) => state.user.token)
@@ -8,7 +9,7 @@ function Navbar() {
 
   return (
     <nav className="main-nav">
-      <Link className="main-nav-logo" to="/">
+      <Link className="main-nav-logo" to={ROUTES.HOME}>
         <img
           className="main-nav-logo-image"
           src="/img/argentBankLogo.png"
@@ -19,7 +20,7 @@ function Navbar() {
       <div>
         {token ? (
           <>
-            <Link className="main-nav-item" to="/profile">
+            <Link className="main-nav-item" to={ROUTES.PROFILE}>
               <i className="fa fa-user-circle"></i> Tony
             </Link>
             <Link className="main-nav-item" to="/" onClick={() => dispatch(logout())}>
@@ -27,7 +28,7 @@ function Navbar() {
             </Link>
           </>
         ) : (
-          <Link className="main-nav-item" to="/sign-in">
+          <Link className="main-nav-item" to={ROUTES.LOGIN}>
             <i className="fa fa-user-circle"></i> Sign In
           </Link>
         )}
