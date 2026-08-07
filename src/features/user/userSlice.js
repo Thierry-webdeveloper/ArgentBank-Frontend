@@ -1,12 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_ROUTES } from "../../config/api.js";
 
 export const loginUser = createAsyncThunk("user/login", async (credentials) => {
-  const response = await axios.post(
-    "http://localhost:3001/api/v1/user/login",
-    credentials,
-  );
-  // console.log("Réponse API reçue :", response.data);
+  const response = await axios.post(API_ROUTES.LOGIN, credentials);
   return response.data.body;
 });
 
@@ -15,11 +12,9 @@ export const fetchProfile = createAsyncThunk(
   async (_, { getState, rejectWithValue }) => {
     try {
       const token = getState().user.token;
-      const response = await axios.get(
-        "http://localhost:3001/api/v1/user/profile",
-        { headers: { Authorization: `Bearer ${token}` } },
-      );
-      // console.log("Réponse API reçue :", response.data.body);
+      const response = await axios.get(API_ROUTES.PROFILE, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       return response.data.body;
     } catch (err) {
       return rejectWithValue(err.response.data.message);
@@ -33,11 +28,10 @@ export const updateUserName = createAsyncThunk(
     try {
       const token = getState().user.token;
       const response = await axios.put(
-        "http://localhost:3001/api/v1/user/profile",
+        API_ROUTES.PROFILE,
         { userName },
         { headers: { Authorization: `Bearer ${token}` } },
       );
-      // console.log("Réponse API reçue :", response.data.body);
       return response.data.body;
     } catch (err) {
       return rejectWithValue(err.response.data.message);
@@ -59,7 +53,6 @@ const userSlice = createSlice({
       state.token = null;
       state.status = "idle";
       state.error = null;
-      // console.log("logout");
     },
   },
 
@@ -67,47 +60,38 @@ const userSlice = createSlice({
     builder
       .addCase(loginUser.pending, (state) => {
         state.status = "loading";
-        // console.log("Statut : pending");
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.token = action.payload.token;
-        // console.log("Statut : fulfilled", action.payload);
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
-        // console.log("Statut : rejected", action.error);
       })
 
       .addCase(fetchProfile.pending, (state) => {
         state.status = "loading";
-        // console.log("Statut : pending");
       })
       .addCase(fetchProfile.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.profile = action.payload;
-        // console.log("Statut : fulfilled", action.payload);
       })
       .addCase(fetchProfile.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
-        // console.log("Statut : rejected", action.payload);
       })
 
       .addCase(updateUserName.pending, (state) => {
         state.status = "loading";
-        // console.log("Statut : pending");
       })
       .addCase(updateUserName.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.profile = action.payload;
-        // console.log("Statut : fulfilled", action.payload);
       })
       .addCase(updateUserName.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
-        // console.log("Statut : rejected", action.payload);
       });
   },
 });
