@@ -39,21 +39,18 @@ export const updateUserName = createAsyncThunk(
   },
 );
 
+const initialState = {
+  token: null,
+  profile: null,
+  status: "idle",
+  error: null,
+};
+
 const userSlice = createSlice({
   name: "user",
-  initialState: {
-    token: null,
-    profile: null,
-    status: "idle",
-    error: null,
-  },
-
+  initialState,
   reducers: {
-    logout: (state) => {
-      state.token = null;
-      state.status = "idle";
-      state.error = null;
-    },
+    logout: () => initialState,
   },
 
   extraReducers: (builder) => {
