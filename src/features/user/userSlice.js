@@ -2,10 +2,17 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { API_ROUTES } from "../../config/api.js";
 
-export const loginUser = createAsyncThunk("user/login", async (credentials) => {
-  const response = await axios.post(API_ROUTES.LOGIN, credentials);
-  return response.data.body;
-});
+export const loginUser = createAsyncThunk(
+  "user/login",
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(API_ROUTES.LOGIN, credentials);
+      return response.data.body;
+    } catch (err) {
+      return rejectWithValue(err.response.data.message);
+    }
+  },
+);
 
 export const fetchProfile = createAsyncThunk(
   "user/fetchProfile",
@@ -64,7 +71,7 @@ const userSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message;
+        state.error = action.payload; // était : action.error.message
       })
 
       .addCase(fetchProfile.pending, (state) => {

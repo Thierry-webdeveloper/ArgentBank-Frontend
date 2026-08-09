@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Navbar from '../components/Navbar.jsx'
 import Footer from '../components/Footer.jsx'
 import { loginUser } from '../features/user/userSlice.js'
@@ -8,6 +8,8 @@ function SignIn() {
   const dispatch = useDispatch()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const status = useSelector((state) => state.user.status)
+  const error = useSelector((state) => state.user.error)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -44,6 +46,10 @@ function SignIn() {
               <input type="checkbox" id="remember-me" />
               <label htmlFor="remember-me">Remember me</label>
             </div>
+            {status === 'failed' && (
+              <div className="error-message">{error}</div>
+            )}
+
             <button type="submit" className="sign-in-button">
               Sign In
             </button>
