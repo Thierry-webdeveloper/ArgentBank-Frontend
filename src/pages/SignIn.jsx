@@ -1,15 +1,25 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar.jsx'
 import Footer from '../components/Footer.jsx'
 import { loginUser } from '../features/user/userSlice.js'
+import { ROUTES } from '../config/routes.js'
 
 function SignIn() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const status = useSelector((state) => state.user.status)
   const error = useSelector((state) => state.user.error)
+  const token = useSelector((state) => state.user.token)
+
+  useEffect(() => {
+    if (token) {
+      navigate(ROUTES.PROFILE)
+    }
+  }, [token, navigate])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -46,10 +56,10 @@ function SignIn() {
               <input type="checkbox" id="remember-me" />
               <label htmlFor="remember-me">Remember me</label>
             </div>
+            {/* Affichage du message d'erreur (state.user.error) */}
             {status === 'failed' && (
               <div className="error-message">{error}</div>
             )}
-
             <button type="submit" className="sign-in-button">
               Sign In
             </button>
