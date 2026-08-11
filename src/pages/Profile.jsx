@@ -1,12 +1,22 @@
-import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import Navbar from '../components/Navbar.jsx'
 import Footer from '../components/Footer.jsx'
 import AccountItem from '../components/AccountItem.jsx'
+import { fetchProfile } from '../features/user/userSlice.js'
 import { ROUTES } from '../config/routes.js'
 
 function Profile() {
+  const dispatch = useDispatch()
   const token = useSelector((state) => state.user.token)
+
+ useEffect(() => {
+    if (token) {
+      dispatch(fetchProfile())
+    }
+  }, [token, dispatch])
+
 
   if (!token) {
     return <Navigate to={ROUTES.LOGIN} replace />
