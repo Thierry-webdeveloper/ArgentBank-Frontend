@@ -1,8 +1,17 @@
+import { useSelector } from 'react-redux'
+import { Navigate } from 'react-router-dom'
 import Navbar from '../components/Navbar.jsx'
 import Footer from '../components/Footer.jsx'
 import AccountItem from '../components/AccountItem.jsx'
+import { ROUTES } from '../config/routes.js'
 
 function Profile() {
+  const token = useSelector((state) => state.user.token)
+
+  if (!token) {
+    return <Navigate to={ROUTES.LOGIN} replace />
+  }
+
   return (
     <>
       <Navbar />
