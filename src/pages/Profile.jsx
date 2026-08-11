@@ -10,6 +10,7 @@ import { ROUTES } from '../config/routes.js'
 function Profile() {
   const dispatch = useDispatch()
   const token = useSelector((state) => state.user.token)
+  const profile = useSelector((state) => state.user.profile)
 
  useEffect(() => {
     if (token) {
@@ -30,7 +31,7 @@ function Profile() {
           <h1>
             Welcome back
             <br />
-            Tony Jarvis!
+            {profile?.userName}!
           </h1>
           <button type="button" className="edit-button">
             Edit Name
