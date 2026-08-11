@@ -5,6 +5,7 @@ import { ROUTES } from '../config/routes.js'
 
 function Navbar() {
   const token = useSelector((state) => state.user.token)
+  const profile = useSelector((state) => state.user.profile)
   const dispatch = useDispatch()
 
   return (
@@ -21,7 +22,7 @@ function Navbar() {
         {token ? (
           <>
             <Link className="main-nav-item" to={ROUTES.PROFILE}>
-              <i className="fa fa-user-circle"></i> Tony
+              <i className="fa fa-user-circle"></i> {profile?.userName}
             </Link>
             <Link className="main-nav-item" to="/" onClick={() => dispatch(logout())}>
               <i className="fa fa-sign-out"></i> Sign Out
