@@ -287,6 +287,21 @@ body {
   color: #fff;
 }
 
+/* Mise en forme pour le formulaire "Edit user info" du composant "Profile.jsx" */
+.edit-user-form {
+  box-sizing: border-box;
+  width: 300px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.edit-button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
 @media (min-width: 720px) {
   .account {
     flex-direction: row;
