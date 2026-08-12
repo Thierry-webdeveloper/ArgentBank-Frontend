@@ -302,6 +302,10 @@ body {
   margin-top: 1rem;
 }
 
+.edit-button-group .edit-button {
+  flex: 1;
+}
+
 @media (min-width: 720px) {
   .account {
     flex-direction: row;
