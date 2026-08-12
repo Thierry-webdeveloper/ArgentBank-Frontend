@@ -51,12 +51,16 @@ const initialState = {
   profile: null,
   status: "idle",
   error: null,
+  isLoggingOut: false,
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    requestLogout: (state) => {
+      state.isLoggingOut = true; // ne touche PAS au token
+    },
     logout: () => initialState,
   },
 
@@ -100,5 +104,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { logout } = userSlice.actions;
+export const { requestLogout, logout } = userSlice.actions;
 export default userSlice.reducer;

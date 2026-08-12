@@ -1,4 +1,5 @@
-import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { loginUser, logout, fetchProfile, updateUserName } from '../features/user/userSlice'
 import Navbar from '../components/Navbar.jsx'
 import Footer from '../components/Footer.jsx'
@@ -6,6 +7,13 @@ import FeatureItem from '../components/FeatureItem.jsx'
 
 function Home() {
   const dispatch = useDispatch()
+  const isLoggingOut = useSelector((state) => state.user.isLoggingOut)
+
+  useEffect(() => {
+    if (isLoggingOut) {
+      dispatch(logout())
+    }
+  }, [isLoggingOut, dispatch])
 
   return (
     <>
