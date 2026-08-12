@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom'
 import Navbar from '../components/Navbar.jsx'
 import Footer from '../components/Footer.jsx'
 import AccountItem from '../components/AccountItem.jsx'
-import { fetchProfile } from '../features/user/userSlice.js'
+import { fetchProfile, updateUserName } from '../features/user/userSlice.js'
 import { ROUTES } from '../config/routes.js'
 
 function Profile() {
@@ -21,7 +21,6 @@ function Profile() {
     }
   }, [token, dispatch])
 
-
   if (!token) {
     return <Navigate to={ROUTES.LOGIN} replace />
   }
@@ -37,7 +36,7 @@ function Profile() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault()
-    // Câblage au thunk updateUserName : commit suivant
+    dispatch(updateUserName(userName))
   }
 
   return (
