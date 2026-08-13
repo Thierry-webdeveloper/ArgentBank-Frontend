@@ -25,12 +25,12 @@ function Profile() {
     return <Navigate to={ROUTES.LOGIN} replace />
   }
 
-  const handleEditClick = () => {
+  const enterEditMode = () => {
     setUserName(profile?.userName || '')
     setIsEditing(true)
   }
 
-  const handleCancelClick = () => {
+  const exitEditMode = () => {
     setIsEditing(false)
   }
 
@@ -84,7 +84,7 @@ function Profile() {
                 <button
                   type="button"
                   className="edit-button"
-                  onClick={handleCancelClick}
+                  onClick={exitEditMode}
                 >
                   Cancel
                 </button>
@@ -101,7 +101,7 @@ function Profile() {
           <button 
             type="button"
             className="edit-button"
-            onClick={handleEditClick}
+            onClick={enterEditMode}
           >
             Edit Name
           </button>
