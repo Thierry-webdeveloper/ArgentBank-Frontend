@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom'
 import Navbar from '../components/Navbar.jsx'
 import Footer from '../components/Footer.jsx'
 import AccountItem from '../components/AccountItem.jsx'
-import { fetchProfile, updateUserName } from '../features/user/userSlice.js'
+import { fetchProfile, updateUserName, resetUserNameStatus } from '../features/user/userSlice.js'
 import { ROUTES } from '../config/routes.js'
 
 function Profile() {
@@ -14,8 +14,7 @@ function Profile() {
   const [isEditing, setIsEditing] = useState(false)
   const [userName, setUserName] = useState('')
 
-
- useEffect(() => {
+  useEffect(() => {
     if (token) {
       dispatch(fetchProfile())
     }
@@ -31,12 +30,21 @@ function Profile() {
   }
 
   const exitEditMode = () => {
+    // Annulation volontaire par l'utilisateur : on efface un éventuel
+    // résidu d'une tentative précédente (ex. un échec affiché) avant
+    // de fermer, pour repartir propre à la prochaine ouverture.
+    dispatch(resetUserNameStatus())
     setIsEditing(false)
   }
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault()
-    dispatch(updateUserName(userName))
+    const resultAction = await dispatch(updateUserName(userName))
+
+    if (updateUserName.fulfilled.match(resultAction)) {
+      dispatch(resetUserNameStatus())
+      setIsEditing(false)
+    }
   }
 
   return (
@@ -75,10 +83,7 @@ function Profile() {
                 />
               </div>
               <div className="edit-button-group">
-                <button
-                  type="submit"
-                  className="edit-button"
-                >
+                <button type="submit" className="edit-button">
                   Save
                 </button>
                 <button
@@ -92,20 +97,20 @@ function Profile() {
             </form>
           </div>
         ) : (
-        <div className="header">
-          <h1>
-            Welcome back
-            <br />
-            {profile?.userName}!
-          </h1>
-          <button 
-            type="button"
-            className="edit-button"
-            onClick={enterEditMode}
-          >
-            Edit Name
-          </button>
-        </div>
+          <div className="header">
+            <h1>
+              Welcome back
+              <br />
+              {profile?.userName}!
+            </h1>
+            <button
+              type="button"
+              className="edit-button"
+              onClick={enterEditMode}
+            >
+              Edit Name
+            </button>
+          </div>
         )}
         <h2 className="sr-only">Accounts</h2>
         <AccountItem
