@@ -11,7 +11,7 @@ function SignIn() {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const status = useSelector((state) => state.user.status)
+  const status = useSelector((state) => state.user.status.login)
   const error = useSelector((state) => state.user.error)
   const token = useSelector((state) => state.user.token)
 

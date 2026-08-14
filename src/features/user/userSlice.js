@@ -49,7 +49,11 @@ export const updateUserName = createAsyncThunk(
 const initialState = {
   token: null,
   profile: null,
-  status: "idle",
+  status: {
+    login: "idle",
+    fetchProfile: "idle",
+    userName: "idle",
+  },
   error: null,
   isLoggingOut: false,
 };
@@ -59,50 +63,53 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     requestLogout: (state) => {
-      state.isLoggingOut = true; // ne touche PAS au token
+      state.isLoggingOut = true;
     },
     logout: () => initialState,
+    resetUserNameStatus: (state) => {
+      state.status.userName = "idle";
+    },
   },
 
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state) => {
-        state.status = "loading";
+        state.status.login = "loading";
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.status.login = "succeeded";
         state.token = action.payload.token;
       })
       .addCase(loginUser.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload; // était : action.error.message
+        state.status.login = "failed";
+        state.error = action.payload;
       })
 
       .addCase(fetchProfile.pending, (state) => {
-        state.status = "loading";
+        state.status.fetchProfile = "loading";
       })
       .addCase(fetchProfile.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.status.fetchProfile = "succeeded";
         state.profile = action.payload;
       })
       .addCase(fetchProfile.rejected, (state, action) => {
-        state.status = "failed";
+        state.status.fetchProfile = "failed";
         state.error = action.payload;
       })
 
       .addCase(updateUserName.pending, (state) => {
-        state.status = "loading";
+        state.status.userName = "loading";
       })
       .addCase(updateUserName.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.status.userName = "succeeded";
         state.profile = action.payload;
       })
       .addCase(updateUserName.rejected, (state, action) => {
-        state.status = "failed";
+        state.status.userName = "failed";
         state.error = action.payload;
       });
   },
 });
 
-export const { requestLogout, logout } = userSlice.actions;
+export const { requestLogout, logout, resetUserNameStatus } = userSlice.actions;
 export default userSlice.reducer;
