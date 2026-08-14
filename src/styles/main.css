@@ -295,6 +295,12 @@ body {
   color: #fff;
 }
 
+/* Griser les boutons "View transactions" rendus inactifs */
+.transaction-button:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
 /* Mise en forme pour le formulaire "Edit user info" du composant "Profile.jsx" */
 .edit-user-form {
   box-sizing: border-box;

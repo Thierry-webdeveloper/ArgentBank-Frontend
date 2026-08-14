@@ -7,7 +7,7 @@ function AccountItem({ title, amount, description }) {
         <p className="account-amount-description">{description}</p>
       </div>
       <div className="account-content-wrapper cta">
-        <button type="button" className="transaction-button">
+        <button type="button" className="transaction-button" disabled>
           View transactions
         </button>
       </div>
