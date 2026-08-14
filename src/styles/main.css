@@ -213,6 +213,14 @@ body {
   font-size: 1.2rem;
 }
 
+/* Style pour les messages d'erreur */
+.error-message {
+  color: #d0021b;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
 .footer {
   display: flex;
   justify-content: center;

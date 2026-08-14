@@ -2,6 +2,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { API_ROUTES } from "../../config/api.js";
 
+function getErrorMessage(err) {
+  if (!err.response) {
+    return "Impossible de contacter le serveur. Vérifiez votre connexion.";
+  }
+  return err.response.data.message;
+}
+
 export const loginUser = createAsyncThunk(
   "user/login",
   async (credentials, { rejectWithValue }) => {
@@ -9,7 +16,7 @@ export const loginUser = createAsyncThunk(
       const response = await axios.post(API_ROUTES.LOGIN, credentials);
       return response.data.body;
     } catch (err) {
-      return rejectWithValue(err.response.data.message);
+      return rejectWithValue(getErrorMessage(err));
     }
   },
 );
@@ -24,7 +31,7 @@ export const fetchProfile = createAsyncThunk(
       });
       return response.data.body;
     } catch (err) {
-      return rejectWithValue(err.response.data.message);
+      return rejectWithValue(getErrorMessage(err));
     }
   },
 );
@@ -41,7 +48,7 @@ export const updateUserName = createAsyncThunk(
       );
       return response.data.body;
     } catch (err) {
-      return rejectWithValue(err.response.data.message);
+      return rejectWithValue(getErrorMessage(err));
     }
   },
 );

@@ -58,7 +58,10 @@ function SignIn() {
             </div>
             {/* Affichage du message d'erreur (state.user.error) */}
             {status === 'failed' && (
-              <div className="error-message">{error}</div>
+              <div className="error-message">
+                <br></br>
+                {error}
+              </div>
             )}
             <button type="submit" className="sign-in-button">
               Sign In

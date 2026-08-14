@@ -11,6 +11,7 @@ function Profile() {
   const dispatch = useDispatch()
   const token = useSelector((state) => state.user.token)
   const profile = useSelector((state) => state.user.profile)
+  const error = useSelector((state) => state.user.error)
   const [isEditing, setIsEditing] = useState(false)
   const [userName, setUserName] = useState('')
 
@@ -82,6 +83,10 @@ function Profile() {
                   disabled
                 />
               </div>
+              {/* Affichage du message d'erreur (state.user.error) */}
+              {error && (
+                <div className="error-message">{error}</div>
+              )}
               <div className="edit-button-group">
                 <button type="submit" className="edit-button">
                   Save
