@@ -48,6 +48,8 @@ function Profile() {
     }
   }
 
+  const isSaveDisabled = userName.trim() === '' || userName === profile?.userName
+
   return (
     <>
       <Navbar />
@@ -88,7 +90,7 @@ function Profile() {
                 <div className="error-message">{error}</div>
               )}
               <div className="edit-button-group">
-                <button type="submit" className="edit-button">
+                <button type="submit" className="edit-button" disabled={isSaveDisabled}>
                   Save
                 </button>
                 <button

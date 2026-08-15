@@ -320,6 +320,11 @@ body {
   flex: 1;
 }
 
+.edit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 @media (min-width: 720px) {
   .account {
     flex-direction: row;
