@@ -6,11 +6,20 @@ import Footer from '../components/Footer.jsx'
 import { loginUser } from '../features/user/userSlice.js'
 import { ROUTES } from '../config/routes.js'
 
+const REMEMBER_ME_KEY = 'argentbank_remember_me'
+const REMEMBERED_EMAIL_KEY = 'argentbank_remembered_email'
+
 function SignIn() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState(() => {
+    const storedRememberMe = localStorage.getItem(REMEMBER_ME_KEY) === 'true'
+    return storedRememberMe ? localStorage.getItem(REMEMBERED_EMAIL_KEY) || '' : ''
+  })
   const [password, setPassword] = useState('')
+  const [rememberMe, setRememberMe] = useState(
+    () => localStorage.getItem(REMEMBER_ME_KEY) === 'true'
+  )
   const status = useSelector((state) => state.user.status.login)
   const error = useSelector((state) => state.user.error)
   const token = useSelector((state) => state.user.token)
@@ -21,9 +30,26 @@ function SignIn() {
     }
   }, [token, navigate])
 
-  const handleSubmit = (e) => {
+    const handleRememberMeChange = (e) => {
+    const checked = e.target.checked
+    setRememberMe(checked)
+    if (!checked) {
+      // Décochage immédiat : on efface tout de suite, sans attendre
+      // un éventuel submit, conformément au scénario où l'utilisateur
+      // coche puis décoche avant même de se connecter.
+      localStorage.removeItem(REMEMBER_ME_KEY)
+      localStorage.removeItem(REMEMBERED_EMAIL_KEY)
+    }
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    dispatch(loginUser({ email, password }))
+    const resultAction = await dispatch(loginUser({ email, password }))
+
+    if (loginUser.fulfilled.match(resultAction) && rememberMe) {
+      localStorage.setItem(REMEMBER_ME_KEY, 'true')
+      localStorage.setItem(REMEMBERED_EMAIL_KEY, email)
+    }
   }
 
   return (
@@ -53,7 +79,11 @@ function SignIn() {
               />
             </div>
             <div className="input-remember">
-              <input type="checkbox" id="remember-me" />
+              <input type="checkbox"
+              id="remember-me"
+              checked={rememberMe}
+              onChange={handleRememberMeChange}
+            />
               <label htmlFor="remember-me">Remember me</label>
             </div>
             {/* Affichage du message d'erreur (state.user.error) */}
