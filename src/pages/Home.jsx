@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { loginUser, logout, fetchProfile, updateUserName } from '../features/user/userSlice'
+import { logout } from '../features/user/userSlice'
 import Navbar from '../components/Navbar.jsx'
 import Footer from '../components/Footer.jsx'
 import FeatureItem from '../components/FeatureItem.jsx'
@@ -47,20 +47,6 @@ function Home() {
             text="We use top of the line encryption to make sure your data and money is always safe."
           />
         </section>
-
-        {/* Boutons de test Redux, à retirer une fois les vraies pages connectées */}
-        <button type="button" onClick={() => dispatch(loginUser({ email: 'tony@stark.com', password: 'password123' }))}>
-          Tester le login Redux
-        </button>
-        <button type="button" onClick={() => dispatch(fetchProfile())}>
-          Tester le fetchProfile Redux
-        </button>
-        <button type="button" onClick={() => dispatch(updateUserName('Iron'))}>
-          Tester updateUserName Redux
-        </button>
-        <button type="button" onClick={() => dispatch(logout())}>
-          Tester le logout Redux
-        </button>
       </main>
 
       <Footer />
